@@ -1,0 +1,141 @@
+openapi: 3.0.1
+info:
+  title: bakitup-service-2
+  description: The Backitup Service
+  version: 1.0.0
+servers:
+  - url: /api/v1
+tags:
+  - name: Config
+    description: Simple config endpoints
+  - name: Specification
+    description: The swagger API specification
+paths:
+  /config:
+    get:
+      tags:
+        - Backup Config
+      description: Fetch the entire backup configuration
+      responses:
+        200:
+          description: Return the config entry with the specified ID
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Config'
+        4XX:
+          description: Config  not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        5XX:
+          description: Config not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - Config
+      description: Add a new config entry
+      requestBody:
+        description: a config
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigEntry'
+        required: true
+      responses:
+        201:
+          description: Return the config with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Config'
+        4XX:
+          description: Config not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        5XX:
+          description: Config not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /config/{id}:
+    get:
+      tags:
+        - Config
+      parameters:
+        - name: id
+          in: path
+          description: The id of the config entry to retrieve
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Return the config entry with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Config'
+        4XX:
+          description: Config entry not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        5XX:
+          description: Config entry not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /spec:
+    get:
+      tags:
+        - Specification
+      responses:
+        200:
+          description: Return the API specification
+          content: {}
+components:
+  schemas:
+    Config:
+      type: array
+      items:
+        $ref: '#/components/schemas/ConfigEntry' 
+    Error:
+      type: object
+      additionalProperties: true
+
+    ConfigEntry:
+      title: Single backup configuration entry
+      required:
+        - source
+        - destination
+      type: object
+      properties:
+        source:
+          $ref: '#/components/schemas/Location' 
+        destination:
+          $ref: '#/components/schemas/Location' 
+
+    Location:
+      title: Location Entity
+      type: object
+      required:
+        - path
+      properties:
+        path:
+          type: string
+          example: '\some\directory\path'
+        volume:
+          type: string
+          example: 'Some-Volume-Name'

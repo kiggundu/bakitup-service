@@ -1,0 +1,52 @@
+{
+  "name": "bakitup-service",
+  "version": "0.0.1",
+  "description": "The Backitup Service",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "compile": "babel server --out-dir dist --delete-dir-on-start --source-maps inline --copy-files",
+    "dev": "nodemon server --exec babel-node --config .nodemonrc.json | pino-pretty",
+    "dev:debug": "nodemon server --exec babel-node --config .nodemonrc.json --inspect | pino-pretty",
+    "test": "mocha --require @babel/register --exit",
+    "test:debug": "mocha --require @babel/register --inspect-brk --exit",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
+  },
+  "dependencies": {
+    "@babel/plugin-proposal-private-methods": "^7.8.3",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-openapi-validator": "^3.9.2",
+    "express-pino-logger": "^4.0.0",
+    "global": "^4.4.0",
+    "pino": "^5.16.0",
+    "pino-tee": "^0.3.0",
+    "tern": "^0.24.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/node": "^7.8.4",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.8.3",
+    "@babel/plugin-proposal-optional-chaining": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/register": "^7.8.3",
+    "babel-eslint": "^10.0.3",
+    "chai": "^4.2.0",
+    "chai-string": "^1.5.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "mocha": "^7.0.1",
+    "nodemon": "^2.0.2",
+    "pino-pretty": "^3.5.0",
+    "prettier": "^1.19.1",
+    "supertest": "^4.0.2"
+  },
+  "author": "Abraham Kiggundu <abraham@thekiggys.com>"
+}
