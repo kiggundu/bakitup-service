@@ -1,18 +1,20 @@
 [
-    {
-        "hash": "f1f2ed0ee97c1cee7a31b76cbe32940c0fe67ad3ba67d6e07540b451a24ac75b",
-        "entry": {
-            "srcVolume": "Library",
-            "destVolume": "Library_backup",
-            "syncDeleted": true
-        }
-    },
-    {
-        "hash": "f1f2ed0ee97c1cee7a31b76cbe32940c0fe67ad3ba67d6e07540b451a24ac75b",
-        "entry": {
-            "srcVolume": "media1",
-            "destVolume": "media1-backup",
-            "syncDeleted": true
-        }
+  {
+    "hash": "b43f1f1624e0ae296dfa03cc89de2380abf4568836b47788970bad71c8e27a8c",
+    "entry": {
+      "source": { "path": "/home/utorrent/torrents/complete" },
+      "destination": {
+        "path": "/mnt/ab4468ad-bd0a-4b49-9bd1-73cf84ca22c5/torrents/complete/"
+      },
+      "syncDeleted": true
     }
+  },
+  {
+    "hash": "843796bfa17b59824f5d0d5ac9f2aa417320f0862ca657e8668f80dae45fe64f",
+    "entry": {
+      "source": { "volume": "media1", "path": "/" },
+      "destination": { "volume": "media1-backup", "path": "/" },
+      "syncDeleted": true
+    }
+  }
 ]

@@ -22,8 +22,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/Config'
+                $ref: '#/components/schemas/Config'
         4XX:
           description: Config  not found
           content:
@@ -109,7 +108,7 @@ components:
     Config:
       type: array
       items:
-        $ref: '#/components/schemas/ConfigEntry' 
+        $ref: '#/components/schemas/ConfigObject' 
     Error:
       type: object
       additionalProperties: true
@@ -124,7 +123,7 @@ components:
         hash:
           type: string
           example: kisudifsl7866sd65s6
-        entry
+        entry:
           $ref: '#/components/schemas/ConfigEntry' 
 
     ConfigEntry:
