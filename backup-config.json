@@ -1,12 +1,18 @@
 [
     {
-        "srcVolume":"Library",
-        "destVolume":"Library_backup",
-        "syncDeleted":true
+        "hash": "f1f2ed0ee97c1cee7a31b76cbe32940c0fe67ad3ba67d6e07540b451a24ac75b",
+        "entry": {
+            "srcVolume": "Library",
+            "destVolume": "Library_backup",
+            "syncDeleted": true
+        }
     },
     {
-        "srcVolume":"media1",
-        "destVolume":"media1-backup",
-        "syncDeleted":true
+        "hash": "f1f2ed0ee97c1cee7a31b76cbe32940c0fe67ad3ba67d6e07540b451a24ac75b",
+        "entry": {
+            "srcVolume": "media1",
+            "destVolume": "media1-backup",
+            "syncDeleted": true
+        }
     }
 ]
