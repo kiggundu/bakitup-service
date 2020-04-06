@@ -1,20 +1,24 @@
 openapi: 3.0.1
+
 info:
   title: bakitup-service-2
   description: The Backitup Service
   version: 1.0.0
+
 servers:
   - url: /api/v1
+
 tags:
-  - name: Config
-    description: Simple config endpoints
+  - name: Backup
+    description: Simple backup endpoints
   - name: Specification
     description: The swagger API specification
+
 paths:
-  /config:
+  /backup:
     get:
       tags:
-        - Backup Config
+        - Backup
       description: Fetch the entire backup configuration
       responses:
         200:
@@ -37,7 +41,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       tags:
-        - Config
+        - Backup
       description: Add a new config entry
       requestBody:
         description: a config
@@ -65,10 +69,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /config/{id}:
+
+  /backup/{id}:
     get:
+      description: Get a given backup config entry by hash id
       tags:
-        - Config
+        - Backup
       parameters:
         - name: id
           in: path
@@ -95,6 +101,46 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+
+  /backup/{id}/#{command}:
+    put:
+      description: Perform an action with respect to a given backup id
+      tags:
+        - Backup
+      parameters:
+        - name: id
+          in: path
+          description: The id of the config entry to retrieve
+          required: true
+          schema:
+            type: string
+        - name: command
+          in: path
+          description: The command to run against the backup
+          required: true
+          schema:
+            type: string
+            enum: [start, stop]
+      responses:
+        200:
+          description: the command was successfully ran against the backup entry with the given ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        4XX:
+          description: Config entry not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        5XX:
+          description: Config entry not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
   /spec:
     get:
       tags:
@@ -103,6 +149,7 @@ paths:
         200:
           description: Return the API specification
           content: {}
+
 components:
   schemas:
     Config:
@@ -150,3 +197,14 @@ components:
         volume:
           type: string
           example: 'Some-Volume-Name'
+    
+    Message:
+      title: An arbitrary message 
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          nullable: true
+          example: 'this is some arbitrary message'

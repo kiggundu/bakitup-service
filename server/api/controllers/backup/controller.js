@@ -16,6 +16,12 @@ export class Controller {
     });
   }
 
+  execute(req, res) {
+    const command = req.params.command;
+    log.info(`===>Command: ${command}`);
+    res.json({ message: `Command processed: ${command}` });
+  }
+
   add(req, res) {
     configStore.insert(req.body).then(r =>
       res

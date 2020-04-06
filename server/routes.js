@@ -1,5 +1,5 @@
-import configRouter from './api/controllers/config/router';
+import backupRouter from './api/controllers/backup/router';
 
 export default function routes(app) {
-  app.use('/api/v1/config', configRouter);
+  app.use('/api/v1/backup', backupRouter);
 }
