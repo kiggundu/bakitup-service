@@ -22,7 +22,7 @@ paths:
       description: Fetch the entire backup configuration
       responses:
         200:
-          description: Return the config entry with the specified ID
+          description: Return all config entries
           content:
             application/json:
               schema:
@@ -81,14 +81,14 @@ paths:
           description: The id of the config entry to retrieve
           required: true
           schema:
-            type: integer
+            type: string
       responses:
         200:
           description: Return the config entry with the specified id
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Config'
+                $ref: '#/components/schemas/ConfigObject'
         4XX:
           description: Config entry not found
           content:
@@ -102,7 +102,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
-  /backup/{id}/#{command}:
+  /backup/{id}/{command}:
     put:
       description: Perform an action with respect to a given backup id
       tags:
@@ -159,6 +159,7 @@ components:
     Error:
       type: object
       additionalProperties: true
+      $ref: '#/components/schemas/Message' 
 
     ConfigObject:
       title: Config entry and its hash

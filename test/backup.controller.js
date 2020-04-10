@@ -2,6 +2,7 @@ import chai from 'chai';
 import chaiStr from 'chai-string';
 import request from 'supertest';
 import Server from '../server';
+import log from '../server/common/logger';
 
 chai.use(chaiStr);
 
@@ -34,19 +35,26 @@ describe('Backup', () => {
 
   it('should get a backup entry by id', () =>
     request(Server)
-      .get('/api/v1/backup/0')
+      .get(
+        '/api/v1/backup/b43f1f1624e0ae296dfa03cc89de2380abf4568836b47788970bad71c8e27a8c'
+      )
       .expect('Content-Type', /json/)
       .then(resp => {
-        expect(resp.body).to.be.an.an('object');
-        //.that.has.property('source');
+        expect(resp.body)
+          .to.be.an.an('object')
+          .that.has.property('entry');
       }));
 
   it('shouldbe able to execute a command against an existing backup id', () =>
     request(Server)
-      .get('/api/v1/backup/0/#start')
+      .put(
+        '/api/v1/backup/b43f1f1624e0ae296dfa03cc89de2380abf4568836b47788970bad71c8e27a8c/start '
+      )
       .expect('Content-Type', /json/)
       .then(resp => {
-        expect(resp.body).to.be.an.an('object');
-        //.that.has.property('source');
+        log.info(`Test got response: ${JSON.stringify(resp)} `);
+        expect(resp.body)
+          .to.be.an.an('object')
+          .that.has.property('message');
       }));
 });

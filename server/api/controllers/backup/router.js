@@ -6,4 +6,4 @@ export default express
   .post('/', controller.add)
   .get('/', controller.all)
   .get('/:id', controller.byId)
-  .put('/:id', controller.execute);
+  .put('/:id/:command', controller.execute);

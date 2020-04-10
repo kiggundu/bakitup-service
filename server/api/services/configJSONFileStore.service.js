@@ -1,5 +1,6 @@
 import fs from 'fs';
 import { promisify } from 'util';
+import { run as jq } from 'node-jq';
 import log from '../../common/logger';
 
 class ConfigJSONFileStore {
@@ -21,7 +22,23 @@ class ConfigJSONFileStore {
 
   async byId(id) {
     log.info(`Getting entry for id: ${id}`);
-    return this.all().then(data => (data[id] ? data[id] : {}));
+    const filter = `.[] | select(.hash == "${id}")`;
+    const data = await this.all();
+    let retJson;
+
+    try {
+      log.debug(`==DATA===> ${JSON.stringify(data)}`);
+      log.debug(`==FILTER===> ${filter}`);
+      retJson = JSON.parse(
+        await jq(filter, JSON.stringify(data), { input: 'string' })
+      );
+    } catch (jqEx) {
+      log.error(`Caught JQ error: ${jqEx}`);
+      retJson = {};
+    }
+
+    log.info(`Returning: ${retJson}`);
+    return retJson;
   }
 
   insert(jsonObj) {

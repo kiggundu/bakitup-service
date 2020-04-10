@@ -10,16 +10,23 @@ export class Controller {
   }
 
   byId(req, res) {
-    configStore.byId(req.params.id).then(r => {
-      if (r) res.json(r);
-      else res.status(404).end();
-    });
+    configStore
+      .byId(req.params.id)
+      .then(r => {
+        res.json(r);
+        res.status(200).end();
+      })
+      .catch(ex => {
+        res.json({ message: `Error: ${ex}` });
+        res.status(500).end();
+      });
   }
 
   execute(req, res) {
     const command = req.params.command;
     log.info(`===>Command: ${command}`);
     res.json({ message: `Command processed: ${command}` });
+    res.status(200).end;
   }
 
   add(req, res) {
